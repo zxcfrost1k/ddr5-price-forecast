@@ -1,0 +1,76 @@
+{
+  "default_models": [
+    "default_lasso",
+    "default_ridge",
+    "default_knn",
+    "default_tree",
+    "default_forest",
+    "default_boost"
+  ],
+  "tuning": [
+    {
+      "algorithm": "knn",
+      "grid": {
+        "n_neighbors": [
+          3,
+          5,
+          9,
+          15,
+          25
+        ],
+        "weights": [
+          "uniform",
+          "distance"
+        ]
+      },
+      "combinations": 10,
+      "before": "default_knn",
+      "best": "grid_knn_10"
+    },
+    {
+      "algorithm": "boost",
+      "grid": {
+        "n_estimators": [
+          75,
+          150
+        ],
+        "max_depth": [
+          1,
+          2,
+          3
+        ],
+        "learning_rate": [
+          0.03,
+          0.08
+        ],
+        "min_samples_leaf": [
+          5
+        ]
+      },
+      "combinations": 12,
+      "before": "default_boost",
+      "best": "grid_boost_07"
+    }
+  ],
+  "finalists": [
+    "default_lasso",
+    "default_ridge",
+    "default_knn",
+    "default_tree",
+    "default_forest",
+    "default_boost",
+    "grid_knn_10",
+    "grid_boost_07"
+  ],
+  "selected": "grid_knn_10",
+  "baseline": "baseline",
+  "selected_without_new_features": "base_features_selected",
+  "relative_improvement": 0.04592998855999697,
+  "lowest_mae": 991.683518528205,
+  "tie_candidates": [
+    "default_knn",
+    "grid_knn_10"
+  ],
+  "fit_rows": 300,
+  "evaluation_rows_per_candidate": 251
+}

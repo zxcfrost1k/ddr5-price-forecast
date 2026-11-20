@@ -1,0 +1,87 @@
+{
+  "matrix_checks": [
+    {
+      "source": "data/initial/initial.csv",
+      "rows": 4267,
+      "matrix_sha256": "9b833592c9b306cee5114741ccca5b1c29475b04b8ad8902d6c0ac48c8330078",
+      "matches_full_archive_prefix": true,
+      "quality": {
+        "sha256": "35796afbf1c0cea66c4629c7d46b5e30c26543bc4b1accec406b07b82547cff4",
+        "read": 4267,
+        "accepted": 4267,
+        "invalid": 0,
+        "linked_to_invalid": 0,
+        "duplicates": 0,
+        "conflicting": 0,
+        "price_warnings": 257
+      }
+    },
+    {
+      "source": "data/incoming/batch_01.csv",
+      "rows": 715,
+      "matrix_sha256": "7a2e527dab4fe7190e78f094094e32ee0472f131d062bb1b4161def84a88cb38",
+      "matches_full_archive_prefix": true,
+      "quality": {
+        "sha256": "6fdbd8cdf9aab4ac26a72f3abb2a473ce5c77c2eb955dc6bea10bee3f02330a6",
+        "read": 715,
+        "accepted": 715,
+        "invalid": 0,
+        "linked_to_invalid": 0,
+        "duplicates": 0,
+        "conflicting": 0,
+        "price_warnings": 291
+      }
+    },
+    {
+      "source": "data/incoming/batch_02.csv",
+      "rows": 708,
+      "matrix_sha256": "f9105d60361c516cfcc5dfb3757498f4e656316f8be179a86f15d7aabb9580de",
+      "matches_full_archive_prefix": true,
+      "quality": {
+        "sha256": "44db96d897b304ea9f18fcf6e52d2d09bf54eaf09fb3e94de88741b3a0ba9d2b",
+        "read": 708,
+        "accepted": 708,
+        "invalid": 0,
+        "linked_to_invalid": 0,
+        "duplicates": 0,
+        "conflicting": 0,
+        "price_warnings": 357
+      }
+    },
+    {
+      "source": "data/incoming/batch_03.csv",
+      "rows": 719,
+      "matrix_sha256": "6d959f7a9e7d7265804f5ee072601071bb3a51d816a421e1ddb6f0d82f3b3f4b",
+      "matches_full_archive_prefix": true,
+      "quality": {
+        "sha256": "3bc3b6ddf2bac4f47483117723c3d9efc236685b13fd1200683b3a0550e925bd",
+        "read": 719,
+        "accepted": 719,
+        "invalid": 0,
+        "linked_to_invalid": 0,
+        "duplicates": 0,
+        "conflicting": 0,
+        "price_warnings": 396
+      }
+    },
+    {
+      "source": "data/incoming/batch_04.csv",
+      "rows": 707,
+      "matrix_sha256": "1ec8ca1cff907d13382d8cb160e2d2bdf92aaa1c73b754b35abcd83235c261a2",
+      "matches_full_archive_prefix": true,
+      "quality": {
+        "sha256": "128efb3421fb5f3eaa1667c03084fddde69dacc6cdcf96eee13d4f6a43063e4f",
+        "read": 707,
+        "accepted": 707,
+        "invalid": 0,
+        "linked_to_invalid": 0,
+        "duplicates": 0,
+        "conflicting": 0,
+        "price_warnings": 510
+      }
+    }
+  ],
+  "repeat_predictions": 715,
+  "predictions_sha256": "07ad767e62634930aca868e8525ed341be00d783c091e80432adb92bb22be406",
+  "repeat_prediction_match": true
+}

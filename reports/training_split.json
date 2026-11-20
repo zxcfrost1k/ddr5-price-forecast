@@ -1,0 +1,87 @@
+{
+  "labelled_initial": 403,
+  "training": 300,
+  "holdout": 73,
+  "holdout_start": "2025-11-19",
+  "training_dates": [
+    "2023-07-04",
+    "2025-11-11"
+  ],
+  "training_target_dates": [
+    "2023-07-11",
+    "2025-11-18"
+  ],
+  "holdout_dates": [
+    "2025-11-19",
+    "2026-02-12"
+  ],
+  "purged": 30,
+  "holdout_scores_computed": false,
+  "folds": [
+    {
+      "fold": 1,
+      "validation_start": "2025-03-15",
+      "train": 44,
+      "validation": 50,
+      "validation_dates": [
+        "2025-03-15",
+        "2025-07-02"
+      ],
+      "purged_train": 5
+    },
+    {
+      "fold": 2,
+      "validation_start": "2025-07-03",
+      "train": 93,
+      "validation": 48,
+      "validation_dates": [
+        "2025-07-03",
+        "2025-08-15"
+      ],
+      "purged_train": 6
+    },
+    {
+      "fold": 3,
+      "validation_start": "2025-08-19",
+      "train": 130,
+      "validation": 54,
+      "validation_dates": [
+        "2025-08-19",
+        "2025-09-15"
+      ],
+      "purged_train": 17
+    },
+    {
+      "fold": 4,
+      "validation_start": "2025-09-16",
+      "train": 186,
+      "validation": 49,
+      "validation_dates": [
+        "2025-09-16",
+        "2025-10-21"
+      ],
+      "purged_train": 15
+    },
+    {
+      "fold": 5,
+      "validation_start": "2025-10-22",
+      "train": 242,
+      "validation": 50,
+      "validation_dates": [
+        "2025-10-22",
+        "2025-11-11"
+      ],
+      "purged_train": 8
+    }
+  ],
+  "source_quality": {
+    "sha256": "35796afbf1c0cea66c4629c7d46b5e30c26543bc4b1accec406b07b82547cff4",
+    "read": 4267,
+    "accepted": 4267,
+    "invalid": 0,
+    "linked_to_invalid": 0,
+    "duplicates": 0,
+    "conflicting": 0,
+    "price_warnings": 257
+  }
+}

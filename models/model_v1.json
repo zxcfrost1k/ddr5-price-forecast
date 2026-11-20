@@ -1,0 +1,120 @@
+{
+  "version": "v1",
+  "trained_on": "2026-11-20",
+  "target": "target_price_rub",
+  "horizon_days": 7,
+  "strategy": "current_price * exp(predicted_log_change)",
+  "algorithm": "knn",
+  "parameters": {
+    "n_neighbors": 25,
+    "weights": "distance"
+  },
+  "new_features": true,
+  "random_state": 42,
+  "snapshot_sha256": "35796afbf1c0cea66c4629c7d46b5e30c26543bc4b1accec406b07b82547cff4",
+  "training_rows": 300,
+  "split": {
+    "labelled_initial": 403,
+    "training": 300,
+    "holdout": 73,
+    "holdout_start": "2025-11-19",
+    "training_dates": [
+      "2023-07-04",
+      "2025-11-11"
+    ],
+    "training_target_dates": [
+      "2023-07-11",
+      "2025-11-18"
+    ],
+    "holdout_dates": [
+      "2025-11-19",
+      "2026-02-12"
+    ],
+    "purged": 30,
+    "holdout_scores_computed": false,
+    "folds": [
+      {
+        "fold": 1,
+        "validation_start": "2025-03-15",
+        "train": 44,
+        "validation": 50,
+        "validation_dates": [
+          "2025-03-15",
+          "2025-07-02"
+        ],
+        "purged_train": 5
+      },
+      {
+        "fold": 2,
+        "validation_start": "2025-07-03",
+        "train": 93,
+        "validation": 48,
+        "validation_dates": [
+          "2025-07-03",
+          "2025-08-15"
+        ],
+        "purged_train": 6
+      },
+      {
+        "fold": 3,
+        "validation_start": "2025-08-19",
+        "train": 130,
+        "validation": 54,
+        "validation_dates": [
+          "2025-08-19",
+          "2025-09-15"
+        ],
+        "purged_train": 17
+      },
+      {
+        "fold": 4,
+        "validation_start": "2025-09-16",
+        "train": 186,
+        "validation": 49,
+        "validation_dates": [
+          "2025-09-16",
+          "2025-10-21"
+        ],
+        "purged_train": 15
+      },
+      {
+        "fold": 5,
+        "validation_start": "2025-10-22",
+        "train": 242,
+        "validation": 50,
+        "validation_dates": [
+          "2025-10-22",
+          "2025-11-11"
+        ],
+        "purged_train": 8
+      }
+    ]
+  },
+  "selection": {
+    "experiment": "grid_knn_10",
+    "algorithm": "knn",
+    "group": "grid",
+    "parameters": "{\"n_neighbors\": 25, \"weights\": \"distance\"}",
+    "new_features": true,
+    "mae": 991.683518528205,
+    "rmse": 1458.8551709259543,
+    "mape": 6.278215115205192,
+    "train_mae": 0.0002225551656798843,
+    "fit_seconds": 0.0021777920017484577,
+    "mae_std": 441.9236216911711
+  },
+  "release_status": "candidate_pending_holdout",
+  "artifact_sha256": "211c20730dd861a58ad40509f75f54a9f5025125658ea97a5f9253d48ed6cfb5",
+  "training_source_sha256": "484021c689724016f3f039b47525162780a31eb29548e2815797e0759fef242b",
+  "git_commit_at_run": "5ee71a04f0b0f379b098edefc7f007d1b323b961",
+  "python": "3.12.14",
+  "platform": "Darwin / arm64",
+  "dependencies": {
+    "scikit-learn": "1.7.2",
+    "numpy": "2.3.5",
+    "pandas": "2.3.3",
+    "scipy": "1.18.1",
+    "joblib": "1.6.0",
+    "threadpoolctl": "3.8.0"
+  }
+}
