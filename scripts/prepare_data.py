@@ -7,6 +7,7 @@ import math
 from collections import Counter, defaultdict
 from datetime import date, timedelta
 from pathlib import Path
+from random import Random
 from statistics import correlation, mean, median, pstdev, quantiles
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -58,6 +59,60 @@ def spearman(xs, ys):
     return correlation(ranks(xs), ranks(ys))
 
 
+def sign_test(differences):
+    positive = sum(d > 0 for d in differences)
+    negative = sum(d < 0 for d in differences)
+    total = positive + negative
+    return {"n": total, "positive": positive, "negative": negative,
+            "median_effect": median(differences),
+            "p": sum(math.comb(total, k) for k in range(positive, total + 1)) / 2**total}
+
+
+def permutation_spearman(pairs, repeats=9999):
+    xs, ys = map(ranks, zip(*pairs))
+    observed = correlation(xs, ys)
+    rng = Random(42)
+    exceed = 0
+    for _ in range(repeats):
+        rng.shuffle(ys)
+        exceed += correlation(xs, ys) >= observed - 1e-12
+    return {"n": len(pairs), "rho": observed, "p": (exceed + 1) / (repeats + 1)}
+
+
+def test_hypotheses(cohorts, examples):
+    ratios = defaultdict(list)
+    for (brand, _), group in cohorts.items():
+        if 16 in group and 32 in group:
+            ratios[brand].append(median(group[32]) / median(group[16]) - 1)
+    grouped = defaultdict(list)
+    for row in examples:
+        grouped[row["model_id"]].append(row)
+    price_pairs, volatility_pairs, gap_effects = [], [], []
+    for same_model in grouped.values():
+        price_pairs.append((median(r["current_price_rub"] for r in same_model),
+                            median(r["target_price_rub"] for r in same_model)))
+        with_volatility = [r for r in same_model if r["log_price_sd_30d"] is not None]
+        if with_volatility:
+            volatility_pairs.append((median(r["log_price_sd_30d"] for r in with_volatility),
+                                     median(r["relative_error_naive"] for r in with_volatility)))
+        short_gap = [r["relative_error_naive"] for r in same_model if r["gap_days"] is not None and r["gap_days"] <= 14]
+        long_gap = [r["relative_error_naive"] for r in same_model if r["gap_days"] is not None and r["gap_days"] > 14]
+        if short_gap and long_gap:
+            gap_effects.append(median(long_gap) - median(short_gap))
+    results = {
+        "H1": sign_test([median(group) for group in ratios.values()]),
+        "H2": permutation_spearman(price_pairs),
+        "H3": sign_test(gap_effects),
+        "H4": permutation_spearman(volatility_pairs),
+    }
+    adjusted = 0.0
+    by_p = sorted(results, key=lambda key: results[key]["p"])
+    for remaining, key in zip(range(len(results), 0, -1), by_p):
+        adjusted = max(adjusted, min(1, remaining * results[key]["p"]))
+        results[key]["p_holm"] = adjusted
+    return results
+
+
 def eda(rows):
     prices = [int(row["price_rub"]) for row in rows]
     by_model = defaultdict(list)
@@ -105,7 +160,9 @@ def eda(rows):
     upper = q3 + 1.5*(q3-q1)
     lower = q1 - 1.5*(q3-q1)
     target_quantiles = quantiles(targets, n=4, method="inclusive")
-    target_bins = [0, 10000, 20000, 30000, 40000, 60000, 80000, 100000, 160000]
+    target_iqr = target_quantiles[2] - target_quantiles[0]
+    target_outlier_upper = target_quantiles[2] + 1.5 * target_iqr
+    target_bins = list(range(0, 100000, 10000))
     histogram = [sum(low <= price < high for price in targets) for low, high in zip(target_bins,target_bins[1:])]
     assert sum(histogram)==len(targets)
     gap_groups = {
@@ -129,12 +186,15 @@ def eda(rows):
         "target":{"rows":len(examples),"models":len({r["model_id"] for r in examples}),
                   "min":min(targets),"max":max(targets),"q1":target_quantiles[0],"median":target_quantiles[1],"q3":target_quantiles[2],
                   "edges":target_bins,"counts":histogram,
+                  "iqr_upper":target_outlier_upper,
+                  "iqr_outliers":sum(price > target_outlier_upper for price in targets),
                   "up":sum(r["target_price_rub"]>r["current_price_rub"] for r in examples),
                   "down":sum(r["target_price_rub"]<r["current_price_rub"] for r in examples),
                   "same":sum(r["target_price_rub"]==r["current_price_rub"] for r in examples),
                   "current_spearman":spearman([r["current_price_rub"] for r in examples],targets),
                   "current_naive_mae":mean(abs(r["target_price_rub"]-r["current_price_rub"]) for r in examples),
                   "by_capacity":{str(cap):{"n":len(values),"median":median(values)} for cap in sorted(set(r["capacity_gb"] for r in examples)) if (values:=[r["target_price_rub"] for r in examples if r["capacity_gb"]==cap])}},
+        "hypothesis_tests":test_hypotheses(cohorts, examples),
         "capacity_hypothesis":{"comparable_brand_months":len(comparable),"over_1":sum(value>1 for value in comparable),"median_price_ratio":median(comparable)},
         "gap_hypothesis":{key:{"n":len(values),"median_relative_error":median(values)} for key,values in gap_groups.items()},
         "volatility_hypothesis":{"n":len(volatile),"spearman":spearman([r["log_price_sd_30d"] for r in volatile],[r["relative_error_naive"] for r in volatile])},
