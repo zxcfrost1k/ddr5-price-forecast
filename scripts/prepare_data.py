@@ -144,6 +144,11 @@ def eda(rows):
 
 def main():
     before = digest(RAW)
+    manifest_path = DATA / "manifest.json"
+    if manifest_path.exists():
+        expected = json.loads(manifest_path.read_text(encoding="utf-8"))["raw"]["sha256"]
+        if before != expected:
+            raise ValueError(f"Исходный CSV изменился: ожидался SHA-256 {expected}")
     with RAW.open(encoding="utf-8-sig",newline="") as stream:
         rows = list(csv.DictReader(stream))
     rows.sort(key=lambda row:(row["date"],row["model_id"]))
@@ -162,7 +167,7 @@ def main():
                 "source_url":"https://pcstonks.com/catalog/", "raw":describe(RAW,rows),
                 "partitions":[describe(path,part) for path,part in zip(files,splits)],
                 "split_rule":"Nearest full day boundaries to 60%, 70%, 80%, 90% cumulative row counts"}
-    write_json(DATA/"manifest.json",manifest)
+    write_json(manifest_path, manifest)
     result,examples=eda(splits[0])
     report=ROOT/"reports"
     report.mkdir(exist_ok=True)
