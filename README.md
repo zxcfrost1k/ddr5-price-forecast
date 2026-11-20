@@ -2,6 +2,29 @@
 
 Исходный срез PCstonks / DNS содержит 7 116 очищенных наблюдений по 236 артикулам DDR5. Одна строка описывает однозначную цену комплекта в наличии на дату события. Цена указана в рублях. Источник: https://pcstonks.com/catalog/.
 
+## Материалы
+
+- [Курсовая работа](outputs/coursework_section1/Курсовая%20работа.docx)
+- [Отчёт по учебной практике](outputs/Практика/Учебная%20практика.docx) с описанием сбора и примером разбора карточки.
+- [Снимок PCstonks и парсер](outputs/ddr5_catalog/ddr5_data_and_parser.zip). Архив сохраняет 92 исходные страницы каталога, 1 374 ответа карточек и метаданные запросов.
+- [Подготовленный датасет](outputs/coursework_dataset_ready.zip) в CSV, Excel и SQLite.
+- [Модель прогноза](models/model_v1.joblib), [метаданные модели](models/model_v1.json) и [журнал экспериментов](reports/experiments.csv).
+
+## Воспроизведение парсинга из архива
+
+Команды запускаются из корня репозитория. Для повторной сборки используются сохранённые ответы PCstonks.
+
+```sh
+replay_dir="$(mktemp -d)"
+unzip -q outputs/ddr5_catalog/ddr5_data_and_parser.zip -d "$replay_dir"
+python3 "$replay_dir/scripts/analyze_ddr5_catalog.py"
+python3 scripts/prepare_coursework_dataset.py --source "$replay_dir/data/ram_ddr5" --output "$replay_dir/dataset"
+python3 scripts/verify_coursework_dataset.py "$replay_dir/dataset"
+cmp data/raw/observations.csv "$replay_dir/dataset/observations.csv"
+```
+
+Первый скрипт извлекает историю цен из сохранённых ответов, объединяет карточки по артикулу и применяет фильтр DDR5 с долей событий «Нет в наличии» менее 20%. Второй строит таблицу достоверно наблюдавшихся цен. Успешное сравнение `cmp` подтверждает побайтовое совпадение с входом модели.
+
 ## Версии
 
 - `pr1` — архитектурные решения, схемы и пересчёт недельного базового прогноза.
