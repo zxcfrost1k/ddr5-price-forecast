@@ -1,0 +1,148 @@
+{
+  "rows": 4267,
+  "models": 141,
+  "missing": {
+    "model_id": 0,
+    "date": 0,
+    "price_rub": 0,
+    "brand": 0,
+    "total_capacity_gb": 0,
+    "module_capacity_gb": 0,
+    "module_count": 0,
+    "speed_mt_s": 0,
+    "cl": 20,
+    "cl_missing": 0,
+    "is_server": 0,
+    "price_per_gb_rub": 0,
+    "retailer": 0,
+    "currency": 0,
+    "source_card_ids": 0,
+    "source_urls": 0,
+    "source_distinct_events": 0
+  },
+  "exact_duplicate_rows": 0,
+  "duplicate_model_dates": 0,
+  "impossible": {
+    "nonpositive_price": 0,
+    "capacity_mismatch": 0,
+    "nonpositive_spec": 0,
+    "incorrect_cl_flag": 0,
+    "wrong_currency_or_retailer": 0
+  },
+  "prices": {
+    "min": 3199,
+    "q1": 10599.0,
+    "median": 15499,
+    "q3": 26699.0,
+    "max": 101999,
+    "iqr_lower": -13551.0,
+    "iqr_upper": 50849.0,
+    "iqr_outliers": 257
+  },
+  "capacity_counts": {
+    "16": 1072,
+    "32": 1904,
+    "48": 500,
+    "64": 791
+  },
+  "speed_counts": {
+    "4800": 60,
+    "5200": 483,
+    "5600": 1152,
+    "6000": 1365,
+    "6400": 574,
+    "6800": 60,
+    "7200": 101,
+    "7600": 78,
+    "8000": 161,
+    "8200": 72,
+    "8400": 95,
+    "8800": 66
+  },
+  "top_brands": {
+    "Kingston": 1505,
+    "G.Skill": 1034,
+    "ADATA": 865,
+    "Patriot": 216,
+    "Team Group": 123
+  },
+  "models_with_single_observation": 2,
+  "observations_per_model_median": 25,
+  "feature_correlations": {
+    "capacity_vs_count": 0.7415312269338572,
+    "speed_vs_cl": -0.40803631223797016,
+    "speed_vs_cl_n": 4247
+  },
+  "target": {
+    "rows": 403,
+    "models": 124,
+    "min": 3599,
+    "max": 85999,
+    "q1": 10599.0,
+    "median": 17299.0,
+    "q3": 30149.0,
+    "edges": [
+      0,
+      10000,
+      20000,
+      30000,
+      40000,
+      60000,
+      80000,
+      100000,
+      160000
+    ],
+    "counts": [
+      90,
+      128,
+      84,
+      41,
+      47,
+      9,
+      4,
+      0
+    ],
+    "up": 267,
+    "down": 119,
+    "same": 17,
+    "current_spearman": 0.9823627537268277,
+    "current_naive_mae": 2838.091811414392,
+    "by_capacity": {
+      "16": {
+        "n": 83,
+        "median": 6299
+      },
+      "32": {
+        "n": 164,
+        "median": 12899.0
+      },
+      "48": {
+        "n": 72,
+        "median": 28899.0
+      },
+      "64": {
+        "n": 84,
+        "median": 28249.0
+      }
+    }
+  },
+  "capacity_hypothesis": {
+    "comparable_brand_months": 97,
+    "over_1": 97,
+    "median_price_ratio": 1.9465976067154849
+  },
+  "gap_hypothesis": {
+    "up_to_14": {
+      "n": 288,
+      "median_relative_error": 0.0698047530836398
+    },
+    "over_14": {
+      "n": 104,
+      "median_relative_error": 0.05263896693736807
+    }
+  },
+  "volatility_hypothesis": {
+    "n": 264,
+    "spearman": 0.5073724873626272
+  }
+}

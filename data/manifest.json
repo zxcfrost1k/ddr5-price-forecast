@@ -1,0 +1,49 @@
+{
+  "source": "PCstonks / DNS, подготовленный срез DDR5 на 17.11.2026",
+  "source_url": "https://pcstonks.com/catalog/",
+  "raw": {
+    "file": "data/raw/observations.csv",
+    "rows": 7116,
+    "first_date": "2023-07-04",
+    "last_date": "2026-11-17",
+    "sha256": "0c0fefbc61871ec9368af621089e46c0eab36f0f07005b63eae3f4ed613f8642"
+  },
+  "partitions": [
+    {
+      "file": "data/initial/initial.csv",
+      "rows": 4267,
+      "first_date": "2023-07-04",
+      "last_date": "2026-02-22",
+      "sha256": "35796afbf1c0cea66c4629c7d46b5e30c26543bc4b1accec406b07b82547cff4"
+    },
+    {
+      "file": "data/incoming/batch_01.csv",
+      "rows": 715,
+      "first_date": "2026-02-23",
+      "last_date": "2026-04-23",
+      "sha256": "6fdbd8cdf9aab4ac26a72f3abb2a473ce5c77c2eb955dc6bea10bee3f02330a6"
+    },
+    {
+      "file": "data/incoming/batch_02.csv",
+      "rows": 708,
+      "first_date": "2026-04-24",
+      "last_date": "2026-06-30",
+      "sha256": "44db96d897b304ea9f18fcf6e52d2d09bf54eaf09fb3e94de88741b3a0ba9d2b"
+    },
+    {
+      "file": "data/incoming/batch_03.csv",
+      "rows": 719,
+      "first_date": "2026-07-01",
+      "last_date": "2026-09-07",
+      "sha256": "3bc3b6ddf2bac4f47483117723c3d9efc236685b13fd1200683b3a0550e925bd"
+    },
+    {
+      "file": "data/incoming/batch_04.csv",
+      "rows": 707,
+      "first_date": "2026-09-08",
+      "last_date": "2026-11-17",
+      "sha256": "128efb3421fb5f3eaa1667c03084fddde69dacc6cdcf96eee13d4f6a43063e4f"
+    }
+  ],
+  "split_rule": "Nearest full day boundaries to 60%, 70%, 80%, 90% cumulative row counts"
+}
